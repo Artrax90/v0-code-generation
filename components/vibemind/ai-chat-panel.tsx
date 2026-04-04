@@ -35,7 +35,7 @@ interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
-  timestamp: Date;
+  timeLabel: string;
 }
 
 const mockMessages: Message[] = [
@@ -43,7 +43,7 @@ const mockMessages: Message[] = [
     id: "1",
     role: "user",
     content: "Объясни архитектуру RAG систем",
-    timestamp: new Date(Date.now() - 300000),
+    timeLabel: "14:15",
   },
   {
     id: "2",
@@ -61,13 +61,13 @@ const mockMessages: Message[] = [
 - Актуальная информация
 - Снижение галлюцинаций
 - Прозрачность источников`,
-    timestamp: new Date(Date.now() - 240000),
+    timeLabel: "14:16",
   },
   {
     id: "3",
     role: "user",
     content: "Какие библиотеки лучше использовать для реализации?",
-    timestamp: new Date(Date.now() - 120000),
+    timeLabel: "14:18",
   },
   {
     id: "4",
@@ -87,9 +87,16 @@ const mockMessages: Message[] = [
 **Эмбеддинги:**
 - \`OpenAI ada-002\` — качественные, платные
 - \`sentence-transformers\` — локальные, бесплатные`,
-    timestamp: new Date(Date.now() - 60000),
+    timeLabel: "14:19",
   },
 ];
+
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 const models = [
   { value: "ollama", label: "Ollama Local" },
@@ -121,7 +128,7 @@ export function AIChatPanel({ onClose }: AIChatPanelProps) {
       id: Date.now().toString(),
       role: "user",
       content: input,
-      timestamp: new Date(),
+      timeLabel: formatTime(new Date()),
     };
 
     setMessages((prev) => [...prev, newMessage]);
@@ -134,7 +141,7 @@ export function AIChatPanel({ onClose }: AIChatPanelProps) {
         id: (Date.now() + 1).toString(),
         role: "assistant",
         content: "Это пример ответа от ИИ-ассистента. В реальном приложении здесь будет интеграция с выбранной моделью.",
-        timestamp: new Date(),
+        timeLabel: formatTime(new Date()),
       };
       setMessages((prev) => [...prev, aiResponse]);
       setIsTyping(false);
@@ -219,10 +226,7 @@ export function AIChatPanel({ onClose }: AIChatPanelProps) {
                     {message.content}
                   </p>
                   <p className="mt-1 text-[10px] opacity-60">
-                    {message.timestamp.toLocaleTimeString("ru-RU", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {message.timeLabel}
                   </p>
 
                   {/* Message actions */}
