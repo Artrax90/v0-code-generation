@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
   ChevronRight,
@@ -103,8 +103,7 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
 
     return (
       <div key={node.id}>
-        <motion.button
-          whileHover={{ backgroundColor: "rgba(39, 39, 42, 0.5)" }}
+        <button
           onClick={() => {
             if (node.type === "folder") {
               toggleFolder(node.id);
@@ -115,8 +114,8 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
           className={cn(
             "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
             isSelected && node.type === "file"
-              ? "bg-primary/20 text-primary"
-              : "text-muted-foreground hover:text-foreground"
+              ? "bg-indigo-500/20 text-indigo-400"
+              : "text-muted-foreground hover:text-foreground hover:bg-zinc-800/50"
           )}
           style={{ paddingLeft: `${depth * 12 + 8}px` }}
         >
@@ -140,7 +139,7 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
             </>
           )}
           <span className="truncate">{node.name}</span>
-        </motion.button>
+        </button>
 
         {node.type === "folder" && isExpanded && node.children && (
           <motion.div
@@ -222,7 +221,7 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
             <User className="h-4 w-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium">Александр</p>
+            <p className="truncate text-sm font-medium">Александ��</p>
             <div className="flex items-center gap-1.5">
               <RefreshCw className="h-3 w-3 text-accent sync-pulse" />
               <span className="text-xs text-muted-foreground">Синхронизация...</span>
@@ -233,7 +232,7 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
             size="icon"
             className={cn(
               "h-8 w-8 hover:glow-primary",
-              currentView === "settings" && "bg-primary/20 text-primary"
+              currentView === "settings" && "bg-indigo-500/20 text-indigo-400"
             )}
             onClick={() => onNavigate("settings")}
           >
