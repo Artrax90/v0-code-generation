@@ -104,7 +104,7 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
     return (
       <div key={node.id}>
         <motion.button
-          whileHover={{ backgroundColor: "oklch(0.2 0.005 285 / 0.5)" }}
+          whileHover={{ backgroundColor: "rgba(39, 39, 42, 0.5)" }}
           onClick={() => {
             if (node.type === "folder") {
               toggleFolder(node.id);
