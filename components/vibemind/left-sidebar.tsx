@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./theme-toggle";
 import type { View } from "./app-shell";
 
 interface TreeNode {
@@ -114,8 +115,8 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
           className={cn(
             "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
             isSelected && node.type === "file"
-              ? "bg-indigo-500/20 text-indigo-400"
-              : "text-muted-foreground hover:text-foreground hover:bg-zinc-800/50"
+              ? "bg-primary/20 text-primary"
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary"
           )}
           style={{ paddingLeft: `${depth * 12 + 8}px` }}
         >
@@ -220,24 +221,27 @@ export function LeftSidebar({ onClose, onNavigate, currentView }: LeftSidebarPro
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
             <User className="h-4 w-4 text-white" />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium">Александ��</p>
+<div className="flex-1 min-w-0">
+            <p className="truncate text-sm font-medium">Александр</p>
             <div className="flex items-center gap-1.5">
               <RefreshCw className="h-3 w-3 text-accent sync-pulse" />
               <span className="text-xs text-muted-foreground">Синхронизация...</span>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className={cn(
-              "h-8 w-8 hover:glow-primary",
-              currentView === "settings" && "bg-indigo-500/20 text-indigo-400"
-            )}
-            onClick={() => onNavigate("settings")}
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn(
+                "h-8 w-8 hover:glow-primary",
+                currentView === "settings" && "bg-primary/20 text-primary"
+              )}
+              onClick={() => onNavigate("settings")}
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </div>
